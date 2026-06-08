@@ -4,17 +4,24 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+	"strconv"
 )
 
+//Faz o request por meio do GET
+
 var Method = map[string]map[string]func(w http.ResponseWriter, r *http.Request) {
-	"GET":
+	"GET": MethodFunction,
 }
+
+//Guarda a função MethodResult
 
 var MethodFunction = map[string]func(w http.ResponseWriter, r *http.Request) {
-	"/result": methodFunction,
+	"/result": MethodResult,
 }
 
-func MethoResult(res http.ResponseWriter, req *http.Request) {
+//Mostra o resultado na tela com tratamento de erros
+
+func MethodResult(res http.ResponseWriter, req *http.Request) {
 	operation := req.URL.Query().Get("op")
 	sliceOperation := strings.Split(operation, " ")
 
